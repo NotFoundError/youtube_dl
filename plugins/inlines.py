@@ -26,6 +26,8 @@ import aiohttp
 from amanobot.exception import TelegramError
 from amanobot.namedtuple import InlineQueryResultArticle, InlineQueryResultPhoto, InputTextMessageContent
 
+if bool(os.environ.get("WEBHOOK", False)):
+    from sample_config import Config
 from config import bot, bot_username
 from .youtube import search_yt
 
