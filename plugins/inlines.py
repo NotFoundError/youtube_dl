@@ -64,7 +64,7 @@ async def inlines(msg):
                 id='a', title='Informações de ' + msg['query'][3:], input_message_content=InputTextMessageContent(
                     message_text='*Consulta*: `' + msg['query'][3:] + '`\n\n' + res, parse_mode="Markdown"))]
 
-            await bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
 
 
         elif msg['query'].split()[0].lower() == 'echo' and len(msg['query'].split()) >= 2:
@@ -72,7 +72,7 @@ async def inlines(msg):
                 id='a', title=msg['query'][5:],
                 input_message_content=InputTextMessageContent(message_text=msg['query'][5:]))]
 
-            await bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
 
 
         elif msg['query'].split()[0].lower() == 'duck' and len(msg['query'].split()) >= 2:
@@ -105,7 +105,7 @@ async def inlines(msg):
                         message_text=f"Sem resultados para '{search}'."
                     )))
 
-            await bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
 
 
         elif msg['query'].split()[0].lower() == 'img':
@@ -132,7 +132,7 @@ async def inlines(msg):
                                                  input_message_content=InputTextMessageContent(
                                                      message_text=query[::-1]))]
 
-            await bot.answerInlineQuery(msg['id'], results=articles)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles)
 
 
         elif msg['query'].split()[0].lower() == 'markdown' and len(msg['query'].split()) >= 2:
@@ -140,7 +140,7 @@ async def inlines(msg):
                 id='a', title=msg['query'][9:],
                 input_message_content=InputTextMessageContent(message_text=msg['query'][9:], parse_mode='Markdown'))]
 
-            await bot.answerInlineQuery(msg['id'], results=articles)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles)
 
 
         elif msg['query'].split()[0].lower() == 'html' and len(msg['query'].split()) >= 2:
@@ -153,7 +153,7 @@ async def inlines(msg):
                 articles = [InlineQueryResultArticle(
                     id='a', title='Texto com erros de formatação.', input_message_content=InputTextMessageContent(
                         message_text='Ocorreu um erro. provavelmente porque você usou uma tag não suportada, ou porque você esqueceu de fechar alguma tag. As tags suportadas são estas: <b>, <i>, <code>, <a> e <pre>.'))]
-                await bot.answerInlineQuery(msg['id'], results=articles)
+                await Config.bot.answerInlineQuery(msg['id'], results=articles)
 
 
         elif msg['query'].split()[0].lower() == 'yt' and len(msg['query'].split()) >= 2:
@@ -169,7 +169,7 @@ async def inlines(msg):
                     id=str(uuid4()), title=f'Nenhum resultado encontrado para "{msg["query"][3:]}".',
                     input_message_content=InputTextMessageContent(message_text='.')))
 
-            await bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
 
 
         elif msg['query'].split()[0].lower() == 'print' and len(msg['query'].split()) >= 2:
@@ -186,12 +186,12 @@ async def inlines(msg):
                     thumb_url="https://image.thum.io/get/width/320/" + url,
                     caption=url
                 )]
-                await bot.answerInlineQuery(msg['id'], results=res, cache_time=60, is_personal=True)
+                await Config.bot.answerInlineQuery(msg['id'], results=res, cache_time=60, is_personal=True)
             except Exception as e:
                 res = [InlineQueryResultArticle(
                     id='a', title='Error',
                     input_message_content=InputTextMessageContent(str(e)))]
-                await bot.answerInlineQuery(msg['id'], results=res, cache_time=60, is_personal=True)
+                await Config.bot.answerInlineQuery(msg['id'], results=res, cache_time=60, is_personal=True)
 
 
         elif msg['query'].lower() == 'faces' or msg['query'].lower() == 'f':
@@ -204,14 +204,14 @@ async def inlines(msg):
                 InlineQueryResultArticle(id=str(uuid4()), title=face, input_message_content=dict(message_text=face)) for
                 face in faces]
 
-            await bot.answerInlineQuery(msg['id'], results=articles)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles)
 
 
         elif msg['query'].split()[0].lower() == 'hidemsg':
             articles = [InlineQueryResultArticle(
                 id='a', title='Resultado: ' + msg['query'][8:],
                 input_message_content=InputTextMessageContent(message_text='\u2060' * 3600 + msg['query'][8:]))]
-            await bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
 
         else:
             articles = [
@@ -229,7 +229,7 @@ async def inlines(msg):
                     description='Pesquise no DuckDuckGo via inline.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} duck</code> - Pesquise no DuckDuckGo via inline.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -237,7 +237,7 @@ async def inlines(msg):
                     description='Mostra uma lista de carinhas ¯\\_(ツ)_/¯',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} faces</code> - exibe uma lista de carinhas :D'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -245,7 +245,7 @@ async def inlines(msg):
                     description='Envia uma mensagem que não aparece nas ações recentes ao ser apagada em até 1 minuto.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} hidemsg</code> - Envie uma mensagem que se for apagada em até 1 minuto não aparece nas <i>ações recentes</i> do grupo.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -253,7 +253,7 @@ async def inlines(msg):
                     description='Formata um código em HTML.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} html</code> - Formata um código em HTML.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -261,7 +261,7 @@ async def inlines(msg):
                     description='Buscador de imagens via inline.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} img</code> - Buscador de imagens via inline.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -269,7 +269,7 @@ async def inlines(msg):
                     description='Exibe informações de determinado IP/URL.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} ip</code> - Exibe informações de determinado IP/URL.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -277,7 +277,7 @@ async def inlines(msg):
                     description='Faz uma screenshot de uma página.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} print</code> - Faz uma screenshot de uma página.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -285,7 +285,7 @@ async def inlines(msg):
                     description='Pesquise no Script via inline.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} run</code> - Pesquise no Script via inline.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 ),
                 InlineQueryResultArticle(
@@ -293,9 +293,9 @@ async def inlines(msg):
                     description='Pesquise vídeos no YouTube via inline.',
                     input_message_content=dict(
                         message_text='<b>Uso:</b> <code>@{} yt</code> - Pesquise vídeos no YouTube via inline.'.format(
-                            bot_username), parse_mode='HTML'
+                            Config.bot_username), parse_mode='HTML'
                     )
                 )
             ]
 
-            await bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
+            await Config.bot.answerInlineQuery(msg['id'], results=articles, cache_time=60, is_personal=True)
