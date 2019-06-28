@@ -1,10 +1,19 @@
 import os
+import amanobot
+import amanobot.aio
+import asyncio
+
 
 class Config(object):
     # get a token from https://chatbase.com
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
     # get a token from @BotFather
     TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
+    loop = asyncio.get_event_loop()  # Do not change this
+    me = loop.run_until_complete(bot.getMe())
+    bot_username = me['@zedgeimadebot']
+    bot_id = me['id']
+
     bot_username = @zedgeimadebot
     # The Telegram API things
     APP_ID = int(os.environ.get("APP_ID", 12345))
