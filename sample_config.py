@@ -12,9 +12,7 @@ class Config(object):
     loop = asyncio.get_event_loop()  # Do not change this
     me = loop.run_until_complete(bot.getMe())
     bot_username = me['@zedgeimadebot']
-    bot_id = me['id']
-
-    bot_username = @zedgeimadebot
+    bot_id = me['339329843']
     # The Telegram API things
     APP_ID = int(os.environ.get("APP_ID", 12345))
     API_HASH = os.environ.get("API_HASH")
