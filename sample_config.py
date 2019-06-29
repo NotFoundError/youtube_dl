@@ -10,7 +10,7 @@ class Config(object):
     # get a token from @BotFather
     TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
     loop = asyncio.get_event_loop()  # Do not change this
-    me = loop.run_until_complete(bot.getMe())
+    me = loop.run_until_complete(TG_BOT_TOKEN.getMe())
     bot_username = me['@zedgeimadebot']
     bot_id = me['339329843']
     # The Telegram API things
