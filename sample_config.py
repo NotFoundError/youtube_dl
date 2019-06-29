@@ -9,8 +9,10 @@ class Config(object):
     CHAT_BASE_TOKEN = os.environ.get("CHAT_BASE_TOKEN", "")
     # get a token from @BotFather
     TG_BOT_TOKEN = os.environ.get("TG_BOT_TOKEN", "")
+    bot = amanobot.aio.Bot(TG_BOT_TOKEN)
+    na_bot = amanobot.Bot(TG_BOT_TOKEN)
     loop = asyncio.get_event_loop()  # Do not change this
-    me = loop.run_until_complete(TG_BOT_TOKEN.getMe())
+    me = loop.run_until_complete(bot.getMe())
     bot_username = me['@zedgeimadebot']
     bot_id = me['339329843']
     # The Telegram API things
@@ -25,8 +27,7 @@ class Config(object):
     SUPER3X_DLBOT_USERS = set(str(x) for x in os.environ.get("SUPER3X_DLBOT_USERS", "").split())
     SUPER7X_DLBOT_USERS = set(str(x) for x in os.environ.get("SUPER7X_DLBOT_USERS", "").split())
     BANNED_USERS = []
-    bot = amanobot.aio.Bot(TG_BOT_TOKEN)
-    na_bot = amanobot.Bot(TG_BOT_TOKEN)
+    
     # Wat was I thinking? :\
     # the download location, where the HTTP Server runs
     DOWNLOAD_LOCATION = "./DOWNLOADS"
